@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup src",
+    "build": "npx tsc --noEmit && tsup src",
     "dev": "tsx watch src/index.ts",
-    "start": "tsup src && node dist/index.js"
+    "start": "npm run build && node dist/index.js"
   },
   "keywords": [],
   "author": "",
