@@ -59,7 +59,8 @@ async function run() {
     }
   );
 
-  server.listen({ port: 8080 }, async (err, address) => {
+  const port = Number(process.env.PORT) || 8080;
+  server.listen({ port }, async (err, address) => {
     if (err) {
       console.error(err);
       process.exit(1);
