@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc --noEmit && tsup src",
     "dev": "tsx watch src/index.ts",
-    "start": "npm run build && node dist/index.js"
+    "start": "npm run build && node dist/index.js",
+    "migrate": "drizzle-kit generate:pg"
   },
   "keywords": [],
   "author": "",
@@ -15,14 +16,18 @@
   "dependencies": {
     "@fastify/swagger": "^8.7.0",
     "@fastify/swagger-ui": "^1.9.2",
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.27.2",
     "fastify": "^4.19.2",
     "fastify-type-provider-zod": "^1.1.9",
     "fastify-zod": "^1.3.2",
     "nodemon": "^2.0.22",
+    "postgres": "^3.3.5",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/node": "^20.4.0",
+    "drizzle-kit": "^0.19.6",
     "ts-node": "^10.9.1",
     "tsup": "^7.1.0",
     "tsx": "^3.12.7",

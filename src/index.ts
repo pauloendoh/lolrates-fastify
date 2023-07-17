@@ -1,8 +1,12 @@
+import { migrate } from "drizzle-orm/postgres-js/migrator";
+
 import fastify from "fastify";
 import { ZodTypeProvider, validatorCompiler } from "fastify-type-provider-zod";
 import { FastifySerializerCompiler } from "fastify/types/schema";
 import { ZodAny, z } from "zod";
 import { configSwagger } from "./config/swagger";
+import { users } from "./schema";
+import { db } from "./utils/drizzle/db";
 
 const server = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -19,11 +23,24 @@ const serializerCompiler: FastifySerializerCompiler<
 server.setSerializerCompiler(serializerCompiler);
 
 server.get("/ping", async (request, reply) => {
-  return "pong\n";
+  const createdUser = await db
+    .insert(users)
+    .values({
+      fullName: "John",
+      phone: "123",
+    })
+    .returning();
+
+  // await db.query.users.findMany({
+
+  // })
+
+  return createdUser;
 });
 
 async function applyConfigs() {
   await configSwagger(server);
+  await migrate(db, { migrationsFolder: "drizzle" });
 }
 
 export type MyServer = typeof server;
@@ -65,7 +82,7 @@ async function run() {
       console.error(err);
       process.exit(1);
     }
-    console.log(`Server listening at ${address}`);
+    console.log(`🚀 Server listening at ${address} 🚀`);
   });
 }
 
