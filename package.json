@@ -8,7 +8,8 @@
     "build": "npx tsc --noEmit && tsup src",
     "dev": "tsx watch src/index.ts",
     "start": "npm run build && node dist/index.js",
-    "migrate": "drizzle-kit generate:pg"
+    "makeMigrations": "drizzle-kit generate:pg",
+    "migrate": "drizzle-kit push:pg"
   },
   "keywords": [],
   "author": "",
